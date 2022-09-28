@@ -442,7 +442,7 @@ TextureImporter:
         width: 74
         height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -450,6 +450,27 @@ TextureImporter:
       bones: []
       spriteID: b08a2f0a66ccbf843b779abe134f3f38
       internalID: -939448801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: c79c6540-5184-4015-85e1-5c2da86a8144_0
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 260
+        width: 54
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d454a8655a7f97d41a6a5bc156fdd067
+      internalID: 159076924
       vertices: []
       indices: 
       edges: []
@@ -472,6 +493,7 @@ TextureImporter:
       YellowTile: -1706248536
       LightBlueTile: -517585557
       PinkTile: -939448801
+      c79c6540-5184-4015-85e1-5c2da86a8144_0: 159076924
       c79c6540-5184-4015-85e1-5c2da86a8144_1: -2122230230
       CarTile: -15225802
       PurpleTile: 1667651193
