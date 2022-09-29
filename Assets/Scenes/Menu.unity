@@ -1502,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3692fda2c04b140ac508646b0467fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Jogo: SampleScene
+  Jogo: MainScene
   painelMenuInicial: {fileID: 1300058281}
   painelOpcoes: {fileID: 1704476358}
 --- !u!4 &1771081502
