@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator MoveJogador(int dado) {
         for(int i = 1; i <= dado; i++) {
-            if(actualPosition == 39) {
+            if(actualPosition >= tiles.Length - 1) {
                 actualPosition = 0;
                 jogador.transform.position = tiles[0].transform.position;
             } else { 
