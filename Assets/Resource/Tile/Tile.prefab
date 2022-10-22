@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Av. Presidente Vargas
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $2.500
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -843,6 +843,7 @@ GameObject:
   - component: {fileID: 6381192750746107935}
   - component: {fileID: 6381192750746107928}
   - component: {fileID: 6381192750746107929}
+  - component: {fileID: 5107933824129428897}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -935,20 +936,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361a02316fe12154f895b20e85229df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Test
+  id: 0
+  waypoint: {fileID: 6381192749743330401}
   color: 0
-  price: 0
   status: 0
   details:
-    aluguel: 0
-    casa1: 0
-    casa2: 0
-    casa3: 0
-    casa4: 0
+    title: 
+    price: 0
+    rent: 0
+    house1: 0
+    house2: 0
+    house3: 0
+    house4: 0
     hotel: 0
-    valorCompraCasa: 0
-    valorCompraHotel: 0
-    valorHipoteca: 0
+    housePurchaseValue: 0
+    hotelPurchaseValue: 0
+    mortgageValue: 0
   nameObj: {fileID: 6381192749599847102}
   priceObj: {fileID: 6381192750300385968}
   houseCountObj: {fileID: 6381192749153396358}
@@ -970,3 +973,31 @@ MonoBehaviour:
   - tileColor: 6
     tileSprite: {fileID: 1667651193, guid: 0b70004bf76e1914699f76a0d5612c4c, type: 3}
   ownerIcon: {fileID: 1186947428916906826}
+  gameManager: {fileID: 0}
+  tileDetailController: {fileID: 0}
+--- !u!61 &5107933824129428897
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6381192750746107930}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.74, y: 0.88}
+    newSize: {x: 0.74, y: 0.88}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.74, y: 0.88}
+  m_EdgeRadius: 0

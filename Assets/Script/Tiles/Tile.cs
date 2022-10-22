@@ -10,22 +10,9 @@ public class TileColorSprite
     public Sprite tileSprite;
 }
 
-public class Tile : MonoBehaviour
-{
+public class Tile : BaseTile {
     [SerializeField]
-    private string title;
-
-    [SerializeField]
-    private TileColor color;
-
-    [SerializeField]
-    private int price;
-
-    [SerializeField]
-    private TileStatus status;
-
-    [SerializeField]
-    private TileDetails details;
+    private TileDetails details = new();
 
     [SerializeField]
     private TextMeshPro nameObj;
@@ -49,11 +36,29 @@ public class Tile : MonoBehaviour
     private GameObject ownerIcon;
 
     [SerializeField]
-    private Player Owner;
+    private GameManager gameManager;
+
+    [SerializeField]
+    private TileDetailController tileDetailController;
 
     // Start is called before the first frame update
     void Start() {
-        status = TileStatus.NOT_BOUGHT;
+        FillControlObjects();
+
+        details.SetTileStatus(TileStatus.NOT_BOUGHT);
+        ownerIcon.SetActive(false);
+        nameObj.text = details.GetTitle();
+        priceObj.text = FormatPrice(details.GetPrice());
+
+        foreach (TileColorSprite cs in spriteColors) {
+            if (details.GetColor() == cs.tileColor) {
+                GetComponent<SpriteRenderer>().sprite = cs.tileSprite;
+            }
+        }
+    }
+
+    private void FillControlObjects() {
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
         if (nameObj == null) {
             nameObj = gameObject.transform.Find("Name").GetComponent<TextMeshPro>();
@@ -67,28 +72,22 @@ public class Tile : MonoBehaviour
             ownerIcon = gameObject.transform.Find("Owner").gameObject;
         }
 
+        if (waypoint == null) {
+            SetWaypoint();
+        }
 
-        ownerIcon.SetActive(false);
-        nameObj.text = title;
-        priceObj.text = FormatPrice(price);
-
-        foreach (TileColorSprite cs in spriteColors) {
-            if (color == cs.tileColor) {
-                GetComponent<SpriteRenderer>().sprite = cs.tileSprite;
-            }
+        if (tileDetailController == null) {
+            tileDetailController = GameObject.FindGameObjectWithTag("TileDetail").GetComponent<TileDetailController>();
         }
     }
 
     // Update is called once per frame
     void Update() {
+        SetTileStatus(details.GetStatus());
     }
 
-    public TileStatus GetStatus() {
-        return status;
-    }
-
-    public void SetTileStatus(TileStatus newStatus) {
-        status = newStatus;
+    public void SetTileStatus(TileStatus status) {
+        details.SetTileStatus(status);
 
         if (status >= TileStatus.ONE_HOUSE && status <= TileStatus.FOUR_HOUSES) {
             int amount = (int)status - 1;
@@ -106,29 +105,37 @@ public class Tile : MonoBehaviour
 
     public void SetOwner(Player player) {
         if (player == null) {
-            Owner = null;
+            details.SetOwner(null);
             ownerIcon.SetActive(false);
         }
 
-        Owner = player;
-        ownerIcon.GetComponent<SpriteRenderer>().color = Owner.GetColor();
+        details.SetOwner(player);
+        ownerIcon.GetComponent<SpriteRenderer>().color = player.GetColor();
         ownerIcon.SetActive(true);
     }
 
     private void OnMouseDown() {
-        Debug.Log("Tile mouse click");    
+        Player curPlayer = gameManager.GetCurrentPlayer();
+
+        if (curPlayer != null) {
+            ShowDetails(curPlayer);            
+        }
     }
 
     private void OnMouseOver()
     {
-        Debug.Log("Tile mouse over");
+        //Debug.Log("Tile mouse over");
     }
 
     private string FormatPrice(int price) {      
         return "$" + price.ToString("N0");
     }
 
-    public void ShowDetails() {
+    private void ShowDetails(Player player) {
+        tileDetailController.ShowDetails(id, details, player);
+    }
 
+    public override void ExecuteAction(Player player) {
+        ShowDetails(player);
     }
 }
