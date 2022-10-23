@@ -15,6 +15,10 @@ abstract public class BaseTile: MonoBehaviour {
         return waypoint;
     }
 
+    public int GetId() {
+        return id;
+    }
+
     public void SetId(int newId) {
         id = newId;
     }

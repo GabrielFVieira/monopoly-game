@@ -13,6 +13,9 @@ public class TileDetailController : MonoBehaviour {
     private GameObject panelExit;
 
     [SerializeField]
+    private Image header;
+
+    [SerializeField]
     private TextMeshProUGUI nameText;
 
     [SerializeField]
@@ -23,6 +26,9 @@ public class TileDetailController : MonoBehaviour {
 
     [SerializeField]
     private GameObject buyBtn;
+
+    [SerializeField]
+    private GameObject sellBtn;
 
     [SerializeField]
     private GameObject ownerPanel;
@@ -37,12 +43,29 @@ public class TileDetailController : MonoBehaviour {
     private TileColorSprite[] spriteColors;
 
     [SerializeField]
+    private GameObject buyOptions;
+
+    [SerializeField]
+    private GameObject plusBtn;
+
+    [SerializeField]
+    private GameObject minusBtn;
+
+    [SerializeField]
+    private GameObject buyOptionsHouse;
+
+    [SerializeField]
+    private GameObject buyOptionsHotel;
+
+    [SerializeField]
     private GameManager gameManager;
+
+    private Tile curTile;
+    private Player curPlayer;
 
     // Start is called before the first frame update
     void Start() {
-        panel.SetActive(false);
-        panelExit.SetActive(false);
+        ClearPanel();
 
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
@@ -52,11 +75,18 @@ public class TileDetailController : MonoBehaviour {
 
     }
 
-    public void ShowDetails(int tileId, TileDetails details, Player player) {
-        nameText.text = details.GetTitle();
-        UpdateColor(details.GetColor());
-        UpdateInfoAndPriceText(details);
-        UpdateButtons(tileId, details, player);
+    public void ShowDetails(Tile tile, Player player) {
+        curTile = tile;
+        curPlayer = player;
+
+        if (curTile == null || curPlayer == null) {
+            return;
+        }
+
+        nameText.text = tile.GetTitle();
+        UpdateColor(tile.GetColor());
+        UpdateInfoAndPriceText(tile);
+        UpdateButtons(tile, player);
 
         panel.SetActive(true);
         panelExit.SetActive(true);
@@ -65,13 +95,16 @@ public class TileDetailController : MonoBehaviour {
     private void UpdateColor(TileColor color) {
         foreach (TileColorSprite cs in spriteColors) {
             if (color == cs.tileColor) {
-                // TODO: Update ColorPanel sprite
-                // GetComponent<SpriteRenderer>().sprite = cs.tileSprite;
+                header.sprite = cs.tileSprite;
+                break;
             }
         }
     }
 
-    private void UpdateInfoAndPriceText(TileDetails details) {
+    private void UpdateInfoAndPriceText(Tile tile) {
+        TileDetails details = tile.GetDetails();
+        TileStatus status = tile.GetStatus();
+
         Dictionary<string, int> infos = new Dictionary<string, int>();
         infos.Add("Aluguel", details.GetRent());
         infos.Add("1 casa", details.GetHouse1());
@@ -90,7 +123,7 @@ public class TileDetailController : MonoBehaviour {
             string infoText = item.Key;
             string priceText = FormatPrice(item.Value);
 
-            if (i + 1 == (int)details.GetStatus()) {
+            if (i + 1 == (int)status) {
                 fullInfoText += HighlightText(infoText);
                 fullPriceText += HighlightText(priceText);
             } else {
@@ -106,24 +139,59 @@ public class TileDetailController : MonoBehaviour {
         priceText.text = fullPriceText;
     }
 
-    private void UpdateButtons(int tileId, TileDetails details, Player player) {
-        if (details.GetStatus() == TileStatus.NOT_BOUGHT) {
-            if (gameManager.GetPlayerCurPosition(player.GetId()) == tileId) {
+    private void UpdateButtons(Tile tile, Player player) {
+        ClearButtons();
+
+        TileDetails details = tile.GetDetails();
+        TileStatus status = tile.GetStatus();
+
+        if (status == TileStatus.NOT_BOUGHT) {
+            if (gameManager.GetPlayerCurPosition(player.GetId()) == tile.GetId()) {
                 buyBtn.SetActive(true);
-                ownerPanel.SetActive(false);
 
                 return;
             }
 
             ownerText.text = "Proprietário: <b>Não tem</b>";
-            buyBtn.SetActive(false);
-            ownerIcon.SetActive(false);
             ownerPanel.SetActive(true);
 
             return;
         }
 
-        // TODO: Add logic for when the tile was already purchased by the current player or another one
+        if (status == TileStatus.MORTGAGE) {
+            ownerText.text = "Proprietário: <b>Banco</b>";
+            ownerPanel.SetActive(true);
+
+            return;
+        }
+
+        Player owner = details.GetOwner();
+        if (owner != null && owner.GetId() != player.GetId()) {
+            ownerText.text = "Proprietário:";
+            ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
+            ownerIcon.SetActive(true);
+            ownerPanel.SetActive(true);
+
+            return;
+        }
+
+        switch (status) {
+            case TileStatus.PURCHASED:
+                sellBtn.SetActive(true);
+                plusBtn.SetActive(true);
+                buyOptionsHouse.SetActive(true);
+                break;
+            case TileStatus.ONE_HOUSE: case TileStatus.TWO_HOUSES: case TileStatus.THREE_HOUSES: case TileStatus.FOUR_HOUSES:
+                minusBtn.SetActive(true);
+                plusBtn.SetActive(true);
+                buyOptionsHouse.SetActive(true);
+                break;
+            case TileStatus.HOTEL:
+                minusBtn.SetActive(true);
+                buyOptionsHotel.SetActive(true);
+                break;
+        }
+        buyOptions.SetActive(true);
     }
 
     private string HighlightText(string text) {
@@ -142,5 +210,79 @@ public class TileDetailController : MonoBehaviour {
         }
 
         return "";
+    }
+
+    private void UpdateDetails() {
+        UpdateInfoAndPriceText(curTile);
+        UpdateButtons(curTile, curPlayer);
+    }
+
+    public void BuyProperty() {
+        if (curTile == null || curPlayer == null) {
+            return;
+        }
+
+        // TODO: Add validations and purchase confirmation
+
+        curTile.BuyProperty(curPlayer);
+        UpdateDetails();
+    }
+
+    public void SellProperty() {
+        if (curTile == null || curPlayer == null) {
+            return;
+        }
+
+        // TODO: Add validations and purchase confirmation
+
+        curTile.SellProperty();
+        UpdateDetails();
+    }
+
+
+
+    public void AddHouse() {
+        if (curTile == null || curPlayer == null) {
+            return;
+        }
+
+        // TODO: Add validations and purchase confirmation
+
+        curTile.UpgradeProperty();
+        UpdateDetails();
+    }
+
+    public void RemoveHouse() {
+        if (curTile == null || curPlayer == null) {
+            return;
+        }
+
+        // TODO: Add validations and sell confirmation
+
+        curTile.DowngradeProperty();
+        UpdateDetails();
+    }
+
+    public void ClearPanel() {
+        curTile = null;
+        curPlayer = null;
+        nameText.text = "";
+        infoText.text = "";
+        priceText.text = "";
+        ClearButtons();
+        panel.SetActive(false);
+        panelExit.SetActive(false);
+    }
+
+    private void ClearButtons() {
+        buyBtn.SetActive(false);
+        sellBtn.SetActive(false);
+        ownerIcon.SetActive(false);
+        ownerPanel.SetActive(false);
+        buyOptions.SetActive(false);
+        minusBtn.SetActive(false);
+        plusBtn.SetActive(false);
+        buyOptionsHouse.SetActive(false);
+        buyOptionsHotel.SetActive(false);
     }
 }

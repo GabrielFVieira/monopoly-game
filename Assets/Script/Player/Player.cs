@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class Player
-{
+public class Player : MonoBehaviour {
     [SerializeField]
     private int id;
 
@@ -28,5 +27,9 @@ public class Player
 
     public void SetColor(Color c) {
         color = c;
+    }
+
+    public Sprite GetImage() {
+        return GetComponent<SpriteRenderer>().sprite;
     }
 }

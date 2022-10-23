@@ -4,18 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class TileDetails {
     [SerializeField]
-    private string title;
-
-    [SerializeField]
-    private TileColor color;
-
-    [SerializeField]
-    private int price;
-
-    [SerializeField]
-    private TileStatus status;
-
-    [SerializeField]
     private int rent;
 
     [SerializeField]
@@ -44,26 +32,6 @@ public class TileDetails {
 
     [SerializeField]
     private Player owner;
-
-    public string GetTitle() {
-        return title;
-    }
-
-    public int GetPrice() {
-        return price;
-    }
-
-    public TileColor GetColor() {
-        return color;
-    }
-
-    public TileStatus GetStatus() {
-        return status;
-    }
-
-    public void SetTileStatus(TileStatus newStatus) {
-        status = newStatus;
-    }
 
     public int GetRent() {
         return rent;
