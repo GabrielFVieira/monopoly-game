@@ -24,9 +24,9 @@ public class PlayerMovement : MonoBehaviour
         for(int i = 1; i <= dado; i++) {
             if(actualPosition >= tiles.Length - 1) {
                 actualPosition = 0;
-                jogador.transform.position = tiles[0].transform.position;
+                jogador.transform.position = tiles[0].GetWaypoint().position;
             } else { 
-            jogador.transform.position = tiles[actualPosition +1].transform.position;
+            jogador.transform.position = tiles[actualPosition +1].GetWaypoint().position;
             actualPosition++;
               }
 
