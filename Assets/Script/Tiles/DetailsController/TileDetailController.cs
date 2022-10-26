@@ -62,6 +62,8 @@ public class TileDetailController : MonoBehaviour {
     private Tile curTile;
     private Player curPlayer;
 
+    private const string ownerWord = "Proprietário: ";
+
     // Start is called before the first frame update
     void Start() {
         ClearPanel();
@@ -149,14 +151,14 @@ public class TileDetailController : MonoBehaviour {
                 return;
             }
 
-            ownerText.text = "Proprietário: <b>Não tem</b>";
+            ownerText.text = ownerWord + "<b>Não tem</b>";
             ownerPanel.SetActive(true);
 
             return;
         }
 
         if (status == TileStatus.MORTGAGE) {
-            ownerText.text = "Proprietário: <b>Banco</b>";
+            ownerText.text = ownerWord + "<b>Banco</b>";
             ownerPanel.SetActive(true);
 
             return;
@@ -164,7 +166,7 @@ public class TileDetailController : MonoBehaviour {
 
         Player owner = tile.Owner;
         if (owner != null && owner.GetId() != player.GetId()) {
-            ownerText.text = "Proprietário:";
+            ownerText.text = ownerWord;
             ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
             ownerIcon.SetActive(true);
             ownerPanel.SetActive(true);

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
 abstract public class BaseTile: MonoBehaviour {
@@ -38,6 +39,10 @@ abstract public class BaseTile: MonoBehaviour {
     }
 
     protected void OnMouseEnter() {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
+
         highlight.SetActive(true);
         GetComponent<SortingGroup>().sortingOrder = initialSortingOrder + 5;
     }

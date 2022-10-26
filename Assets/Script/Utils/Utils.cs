@@ -6,6 +6,6 @@ public static class Utils
     }
 
     public static string HighlightText(string text, string color = "08FF00") {
-        return "<color=#" + color + "><b>" + text + "</b></color>";
+        return "<color=#" + color + ">" + text + "</color>";
     }
 }

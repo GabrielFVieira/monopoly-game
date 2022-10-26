@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Tile : BaseTile {
 
@@ -93,6 +94,10 @@ public class Tile : BaseTile {
     }
 
     private void OnMouseUp() {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
+
         Player curPlayer = gameManager.GetCurrentPlayer();
 
         if (curPlayer != null) {

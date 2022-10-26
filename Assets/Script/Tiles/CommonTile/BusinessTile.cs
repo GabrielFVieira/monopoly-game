@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
 public class BusinessTile : BaseTile
@@ -75,6 +76,10 @@ public class BusinessTile : BaseTile
     }
 
     private void OnMouseUp() {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
+
         Player curPlayer = gameManager.GetCurrentPlayer();
 
         if (curPlayer != null) {
