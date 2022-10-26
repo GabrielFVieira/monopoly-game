@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 abstract public class BaseTile: MonoBehaviour {
     [SerializeField]
@@ -7,8 +8,21 @@ abstract public class BaseTile: MonoBehaviour {
     [SerializeField]
     protected Transform waypoint;
 
-    protected void SetWaypoint() {
-        waypoint = gameObject.transform.Find("Waypoint");
+    [SerializeField]
+    protected GameObject highlight;
+
+    protected int initialSortingOrder;
+
+    protected void Start() {
+        if (waypoint == null) {
+            waypoint = gameObject.transform.Find("Waypoint");
+        }
+
+        if (highlight == null) {
+            highlight = gameObject.transform.Find("Highlight").gameObject;
+        }
+
+        initialSortingOrder = GetComponent<SortingGroup>().sortingOrder;
     }
 
     public Transform GetWaypoint() {
@@ -21,6 +35,16 @@ abstract public class BaseTile: MonoBehaviour {
 
     public void SetId(int newId) {
         id = newId;
+    }
+
+    protected void OnMouseEnter() {
+        highlight.SetActive(true);
+        GetComponent<SortingGroup>().sortingOrder = initialSortingOrder + 5;
+    }
+
+    protected void OnMouseExit() {
+        highlight.SetActive(false);
+        GetComponent<SortingGroup>().sortingOrder = initialSortingOrder;
     }
 
     public abstract void ExecuteAction(Player player);

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using System.Linq;
@@ -83,8 +82,8 @@ public class TileDetailController : MonoBehaviour {
             return;
         }
 
-        nameText.text = tile.GetTitle();
-        UpdateColor(tile.GetColor());
+        nameText.text = tile.Title;
+        UpdateColor(tile.Color);
         UpdateInfoAndPriceText(tile);
         UpdateButtons(tile, player);
 
@@ -102,16 +101,16 @@ public class TileDetailController : MonoBehaviour {
     }
 
     private void UpdateInfoAndPriceText(Tile tile) {
-        TileDetails details = tile.GetDetails();
-        TileStatus status = tile.GetStatus();
+        TileDetails details = tile.Details;
+        TileStatus status = tile.Status;
 
         Dictionary<string, int> infos = new Dictionary<string, int>();
-        infos.Add("Aluguel", details.GetRent());
-        infos.Add("1 casa", details.GetHouse1());
-        infos.Add("2 casas", details.GetHouse2());
-        infos.Add("3 casas", details.GetHouse3());
-        infos.Add("4 casas", details.GetHouse4());
-        infos.Add("Hotel", details.GetHotel());
+        infos.Add("Aluguel", details.Rent);
+        infos.Add("1 casa", details.House1);
+        infos.Add("2 casas", details.House2);
+        infos.Add("3 casas", details.House3);
+        infos.Add("4 casas", details.House4);
+        infos.Add("Hotel", details.Hotel);
 
         string fullInfoText = "";
         string fullPriceText = "";
@@ -121,11 +120,11 @@ public class TileDetailController : MonoBehaviour {
         for (int i = 0; i < infosLength; i++) {
             var item = infos.ElementAt(i);
             string infoText = item.Key;
-            string priceText = FormatPrice(item.Value);
+            string priceText = Utils.FormatPrice(item.Value);
 
             if (i + 1 == (int)status) {
-                fullInfoText += HighlightText(infoText);
-                fullPriceText += HighlightText(priceText);
+                fullInfoText += Utils.HighlightText(infoText);
+                fullPriceText += Utils.HighlightText(priceText);
             } else {
                 fullInfoText += infoText;
                 fullPriceText += priceText;
@@ -141,9 +140,7 @@ public class TileDetailController : MonoBehaviour {
 
     private void UpdateButtons(Tile tile, Player player) {
         ClearButtons();
-
-        TileDetails details = tile.GetDetails();
-        TileStatus status = tile.GetStatus();
+        TileStatus status = tile.Status;
 
         if (status == TileStatus.NOT_BOUGHT) {
             if (gameManager.GetPlayerCurPosition(player.GetId()) == tile.GetId()) {
@@ -165,7 +162,7 @@ public class TileDetailController : MonoBehaviour {
             return;
         }
 
-        Player owner = details.GetOwner();
+        Player owner = tile.Owner;
         if (owner != null && owner.GetId() != player.GetId()) {
             ownerText.text = "Proprietário:";
             ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
@@ -192,14 +189,6 @@ public class TileDetailController : MonoBehaviour {
                 break;
         }
         buyOptions.SetActive(true);
-    }
-
-    private string HighlightText(string text) {
-        return "<color=#08FF00><b>" + text + "</b></color>";
-    }
-
-    private string FormatPrice(int price) {
-        return "$" + price.ToString("N0");
     }
 
     private string AddSpace(int index, int limit) {

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IRSTile : BaseTile
+public class GoTile : BaseTile
 {
     public override void ExecuteAction(Player player) {
-        Debug.Log("Executing IRS Tile action");
+        Debug.Log("Executing Go action");
     }
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         
     }
