@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 7586279072291056836}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7996809, y: 0.9493438, z: 0.9655006}
+  m_LocalScale: {x: 2.234766, y: 2.234766, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7586279072506128951}
@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 7586279072506128951}
   - component: {fileID: 7586279072506128945}
   - component: {fileID: 7586279072506128944}
-  - component: {fileID: 7586279072506128946}
   - component: {fileID: 7586279072506128947}
+  - component: {fileID: 2512897679311317806}
   m_Layer: 0
   m_Name: GoTile
   m_TagString: Untagged
@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 7586279072506128950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.163, y: 0, z: 0}
-  m_LocalScale: {x: 2.29367, y: 1.9299897, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7586279072470128464}
@@ -193,7 +193,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1863536770, guid: 0b70004bf76e1914699f76a0d5612c4c, type: 3}
+  m_Sprite: {fileID: 506929346, guid: 068e14a6b83bd6a4195c24c27458d60c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -219,7 +219,18 @@ MonoBehaviour:
   id: 0
   waypoint: {fileID: 7586279072470128464}
   highlight: {fileID: 7586279072291056836}
---- !u!61 &7586279072506128946
+--- !u!210 &7586279072506128947
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586279072506128950}
+  m_Enabled: 1
+  m_SortingLayerID: 320843825
+  m_SortingLayer: 2
+  m_SortingOrder: 2
+--- !u!61 &2512897679311317806
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,23 +247,12 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.74, y: 0.88}
+    oldSize: {x: 2.1333334, y: 2.1333334}
     newSize: {x: 0.74, y: 0.88}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.74, y: 0.88}
+  m_Size: {x: 2.1333334, y: 2.1333334}
   m_EdgeRadius: 0
---- !u!210 &7586279072506128947
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7586279072506128950}
-  m_Enabled: 1
-  m_SortingLayerID: 320843825
-  m_SortingLayer: 2
-  m_SortingOrder: 2

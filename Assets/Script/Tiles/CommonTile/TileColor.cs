@@ -5,7 +5,8 @@ public enum TileColor
     GREEN,
     YELLOW,
     ORANGE,
-    BLUE,
+    LIGHT_BLUE,
+    DARK_BLUE,
     PINK,
     PURPLE
 }
