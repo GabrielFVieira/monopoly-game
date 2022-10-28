@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TileDetail
+  - BusinessTileDetail
   layers:
   - Default
   - TransparentFX
@@ -43,4 +45,7 @@ TagManager:
     locked: 0
   - name: Above
     uniqueID: 2560990843
+    locked: 0
+  - name: Board
+    uniqueID: 320843825
     locked: 0
