@@ -455,7 +455,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: c79c6540-5184-4015-85e1-5c2da86a8144_0
+      name: PlayerRed
       rect:
         serializedVersion: 2
         x: 620
@@ -463,7 +463,7 @@ TextureImporter:
         width: 54
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -471,6 +471,237 @@ TextureImporter:
       bones: []
       spriteID: d454a8655a7f97d41a6a5bc156fdd067
       internalID: 159076924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailPinkPlaceholder
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 286
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab19b39519ae06a428a8a3423c24801c
+      internalID: 2127796610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailBluePlaceholder
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 88
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d54de0821a76bea4c8ce12a971041986
+      internalID: -1284299085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailPurplePlaceholder
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 91
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 614eee8141c29e74f9a72e7b9d300ed6
+      internalID: -1242658784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailGreenPlaceholder
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 443
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4670374f0cab4cd458d385cf9c570e4d
+      internalID: -433791996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailYellowPlaceholder
+      rect:
+        serializedVersion: 2
+        x: 1087
+        y: 668
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54577ae4d16ba6248a3a7b51dc159314
+      internalID: 887936057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailOrangePlaceholder
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 532
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 705750cc7d429564bb5b58377f8e90a1
+      internalID: 806364300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailRedPlaceholder
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 668
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 680d26b8ddb9c67458b34916ca9b3cd0
+      internalID: 1199841510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerBlue
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 260
+        width: 54
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28806c1b8dd774640b34363233132788
+      internalID: 851298001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerYellow
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 174
+        width: 54
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4362cb35db5f2ca47a2a524df2e37992
+      internalID: 1566227669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerGreen
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 173
+        width: 54
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0455644ea79907047846473a18f6c43b
+      internalID: -2119062288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DetailSpecialPlaceholder
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 390
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ad98f9669f74c14da6fb4ec8fbd3d11
+      internalID: 1495123657
       vertices: []
       indices: 
       edges: []
@@ -491,13 +722,24 @@ TextureImporter:
       QuestionTile: 1646498838
       RedTile: 48513973
       YellowTile: -1706248536
+      DetailRedPlaceholder: 1199841510
+      DetailBluePlaceholder: -1284299085
+      PlayerYellow: 1566227669
       LightBlueTile: -517585557
+      DetailSpecialPlaceholder: 1495123657
       PinkTile: -939448801
-      c79c6540-5184-4015-85e1-5c2da86a8144_0: 159076924
+      DetailYellowPlaceholder: 887936057
+      DetailOrangePlaceholder: 806364300
+      DetailGreenPlaceholder: -433791996
       c79c6540-5184-4015-85e1-5c2da86a8144_1: -2122230230
       CarTile: -15225802
+      DetailPinkPlaceholder: 2127796610
+      PlayerRed: 159076924
+      PlayerGreen: -2119062288
+      PlayerBlue: 851298001
       PurpleTile: 1667651193
       WhiteTile: 506325841
+      DetailPurplePlaceholder: -1242658784
       GreenTile: -1156671451
       BlueTile: -533840088
       PrisonTile: 1711278696
