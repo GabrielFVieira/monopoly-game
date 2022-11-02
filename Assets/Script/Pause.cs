@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
-    [SerializeField] private string Menu;
+    private string Menu = "Menu";
     private bool isPaused;
     public GameObject pausePanel;
-    public string cena;
+    public GameObject pauseBtn;
 
     void Update()
     {
@@ -24,12 +24,14 @@ public class Pause : MonoBehaviour
         {
             isPaused = false;
             pausePanel.SetActive(false);
+            pauseBtn.SetActive(true);
             Time.timeScale = 1;
         }
         else
         {
             isPaused = true;
             pausePanel.SetActive(true);
+            pauseBtn.SetActive(false);
             Time.timeScale = 0;
         }
     }
@@ -37,6 +39,7 @@ public class Pause : MonoBehaviour
     public void ResumeGame()
     {
         pausePanel.SetActive(false);
+        pauseBtn.SetActive(true);
         Time.timeScale = 1;
     }
 
@@ -49,6 +52,7 @@ public class Pause : MonoBehaviour
     {
         isPaused = true;
         pausePanel.SetActive(true);
+        pauseBtn.SetActive(false);
         Time.timeScale = 0;
     }
 
