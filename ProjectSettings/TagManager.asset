@@ -49,3 +49,6 @@ TagManager:
   - name: Board
     uniqueID: 320843825
     locked: 0
+  - name: Canvas
+    uniqueID: 1647485375
+    locked: 0

@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     private BaseTile[] tiles;
 
     [SerializeField]
-    private Player[] players;
+    public Player[] players;
+    public List<Player> Players { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (players != null) {
-            for (int i = 0; i < players.Length; i++) {
-                players[i].SetId(i + 1);
+        if (Players != null) {
+            for (int i = 0; i < Players.Count; i++) {
+                Players[i].SetId(i + 1);
             }
         }
     }
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     }
 
     public Player GetCurrentPlayer() {
-        return players[0];
+        return Players[0];
     }
 
     public int GetPlayerCurPosition(int playerId) {
