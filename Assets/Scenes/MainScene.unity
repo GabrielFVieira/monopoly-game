@@ -7468,8 +7468,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314f4db7efd4dbc4a89130a1e51d2961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jogador: {fileID: 1724320044}
   gameManager: {fileID: 0}
+  jogadores:
+  - {fileID: 1724320044}
+  - {fileID: 1295203650}
+  - {fileID: 1940885245}
+  - {fileID: 416027120}
 --- !u!61 &1457675963
 BoxCollider2D:
   m_ObjectHideFlags: 0
