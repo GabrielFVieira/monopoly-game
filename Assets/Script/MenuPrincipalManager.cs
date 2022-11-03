@@ -4,6 +4,7 @@ using UnityEngine.Audio;
 using UnityEngine;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MenuPrincipalManager : MonoBehaviour
 {
@@ -43,6 +44,9 @@ public class MenuPrincipalManager : MonoBehaviour
             player4Setup.SetActive(true);
         }
         //SceneManager.LoadScene(Jogo);
+    }
+    public static void LoadGame() {
+        SceneManager.LoadScene("MainScene");
     }
     public void AbrirOpcoes()
     {

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerSetup : MonoBehaviour {
     [SerializeField] public int playerIndex;
+    public static int readyPlayersAmount = 0;
 
     public void SetPlayerInitiative(int initiative) {
         MenuPrincipalManager.players[playerIndex].Initiative = initiative;
@@ -19,5 +20,9 @@ public class PlayerSetup : MonoBehaviour {
 
     public void SetReady() {
         MenuPrincipalManager.players[playerIndex].Ready = true;
+        readyPlayersAmount++;
+        if(readyPlayersAmount == MenuPrincipalManager.playerAmount) {
+            MenuPrincipalManager.LoadGame();
+        }
     }
 }

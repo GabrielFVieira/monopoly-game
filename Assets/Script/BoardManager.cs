@@ -7,7 +7,7 @@ public class BoardManager : MonoBehaviour {
     [SerializeField] private GameObject bluePlayerPositionIndicator;
     [SerializeField] private GameObject greenPlayerPositionIndicator;
     [SerializeField] private GameObject yellowPlayerPositionIndicator;
-    public GameManager gameManager = new GameManager();
+    public static GameManager gameManager = new GameManager();
     private List<string> piecesNames = new List<string>() { "Red", "Blue", "Green", "Yellow"};	
 
     public void Start() {
@@ -16,11 +16,6 @@ public class BoardManager : MonoBehaviour {
         for (int i = 0; i < MenuPrincipalManager.playerAmount; i++) {
             gameManager.Players[i].Money = 1000;
         }
-        foreach (Player player in gameManager.Players)
-        {
-            PlayerInitiative(player);
-            //player.RollDice();
-        }
         //order game manager players by initiative
         gameManager.Players.Sort((x, y) => y.Initiative.CompareTo(x.Initiative));
         //display order in board
@@ -28,6 +23,8 @@ public class BoardManager : MonoBehaviour {
         int j = 0;
         foreach (Player player in gameManager.Players)
         {
+            Debug.Log(player.Piece);
+            Debug.Log(player.Initiative);
             var piece = new GameObject();
             if(player.Piece == "Green") {
                 piece = greenPlayerPositionIndicator;

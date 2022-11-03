@@ -53,7 +53,6 @@ public class DiceInitiative : MonoBehaviour {
             // Pick up random value from 0 to 5 (All inclusive)
             randomDiceSide = Random.Range(0, 5);
             randomDiceSide2 = Random.Range(0, 5);
-            Debug.Log(randomDiceSide + randomDiceSide2);
 
             // Set sprite to upper face of dice from array according to random value
             Dice1Sprite.sprite = diceSides[randomDiceSide];

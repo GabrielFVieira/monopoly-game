@@ -26,7 +26,7 @@ public class Dice : MonoBehaviour {
     }
 
     // Coroutine that rolls the dice
-    private IEnumerator RollTheDice(bool dispute = false)
+    private IEnumerator RollTheDice()
     {
         // Variable to contain random dice side number.
         // It needs to be assigned. Let it be 0 initially
@@ -60,7 +60,6 @@ public class Dice : MonoBehaviour {
 
         // Show final dice value in Console
         Debug.Log(finalSide + finalSide2);
-        if(!dispute)
-            GetComponent<PlayerMovement>().StartMoveJogador(finalSide + finalSide2);
+        GetComponent<PlayerMovement>().StartMoveJogador(finalSide + finalSide2);
     }
 }
