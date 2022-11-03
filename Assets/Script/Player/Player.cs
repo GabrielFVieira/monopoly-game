@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 
     public int Initiative { get; set; }
 
+    public bool Ready { get; set; }
+
     [SerializeField]
     private Color color;
 

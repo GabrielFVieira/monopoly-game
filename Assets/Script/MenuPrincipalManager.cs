@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class MenuPrincipalManager : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class MenuPrincipalManager : MonoBehaviour
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject selectPlayers;
     [SerializeField] private GameObject setPlayers;
+    [SerializeField] private GameObject player3Setup;
+    [SerializeField] private GameObject player4Setup;
+
+
 
     public void Jogar()
     {
@@ -20,22 +25,24 @@ public class MenuPrincipalManager : MonoBehaviour
         selectPlayers.SetActive(true);
         // SceneManager.LoadScene(Jogo);
     }
-    public void SelectPlayerAmount(int amount) {
+    public void SelectPlayerAmount(int amount)
+    {
         playerAmount = amount;
         players = new List<Player>();
-        for (int i = 0; i < playerAmount; i++) {
+        for (int i = 0; i < playerAmount; i++)
+        {
             Player player = new Player();
             players.Add(player);
         }
         selectPlayers.SetActive(false);
         setPlayers.SetActive(true);
+        if(playerAmount >= 3) {
+            player3Setup.SetActive(true);
+        }
+        if(playerAmount >= 4) {
+            player4Setup.SetActive(true);
+        }
         //SceneManager.LoadScene(Jogo);
-    }
-    public void SetPlayerPiece(string input) {
-        string[] args = input.Split(',');
-        int playerIndex = Convert.ToInt32(args[0] != null ? args[0] : "0");
-        string piece = args[1];
-        players[playerIndex].Piece = piece;
     }
     public void AbrirOpcoes()
     {
