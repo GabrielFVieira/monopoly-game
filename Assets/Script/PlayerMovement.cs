@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject jogador;
-    protected int actualPosition = 0;
-
     [SerializeField]
     private GameManager gameManager;
+    [SerializeField]
+    private BoardManager boardManager;
 
     void Start() {
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -20,19 +18,23 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator MoveJogador(int dado) {
         BaseTile[] tiles = gameManager.GetTiles();
+        var player = gameManager.GetCurrentPlayer();
+        var piece = gameManager.GetPlayerPiece(gameManager.GetCurrentPlayer());
 
-        for(int i = 1; i <= dado; i++) {
-            if(actualPosition >= tiles.Length - 1) {
-                actualPosition = 0;
-                jogador.transform.position = tiles[0].GetWaypoint().position;
+        for (int i = 1; i <= dado; i++)
+        {
+            if(player.Position >= tiles.Length - 1) {
+                player.Position = 0;
+                piece.transform.position = tiles[0].GetWaypoint().position;
             } else { 
-            jogador.transform.position = tiles[actualPosition +1].GetWaypoint().position;
-            actualPosition++;
-              }
+                piece.transform.position = tiles[player.Position +1].GetWaypoint().position;
+                player.Position++;
+            }
 
             yield return new WaitForSeconds(0.5f);
 
         }
+        gameManager.NextPlayer();
+        gameManager.HighlightCurrentPlayer();
     }
-  
 }
