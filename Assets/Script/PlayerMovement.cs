@@ -36,5 +36,6 @@ public class PlayerMovement : MonoBehaviour
         }
         gameManager.NextPlayer();
         gameManager.HighlightCurrentPlayer();
+        gameManager.UpdateCardsIndicatorCurrentPlayer();
     }
 }

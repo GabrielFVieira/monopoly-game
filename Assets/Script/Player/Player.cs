@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
     [SerializeField]
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour {
     public string Name { get; set; }
 
     public string Piece { get; set; }
+
+    public List<Card> Cards { get; set; }
 
     public int Position { get; set; }
 

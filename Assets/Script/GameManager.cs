@@ -24,14 +24,34 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject bluePanel;
     [SerializeField] private GameObject greenPanel;
     [SerializeField] private GameObject yellowPanel;
-    private List<string> piecesNames = new List<string>() { "Red", "Blue", "Green", "Yellow"};	
+    [SerializeField] private GameObject cardsIndicator;
+    private List<string> piecesNames = new List<string>() { "Red", "Blue", "Green", "Yellow" };
 
     // Start is called before the first frame update
     void Start()
     {
-        Players = MenuPrincipalManager.players;
+        // add players if not coming from menu (for testing purposes only)
+        int playerAmount = 0;
+        Debug.Log("PlayerAmount: " + playerAmount);
+        Debug.Log("Players: " + MenuPrincipalManager.players);
+        if (MenuPrincipalManager.players == null || MenuPrincipalManager.players.Count == 0)
+        {
+            playerAmount = 4;
+            Players = new List<Player>();
+            for (int i = 0; i < playerAmount; i++)
+            {
+                Player player = new Player();
+                player.Name = i.ToString();
+                player.Piece = piecesNames[i];
+                player.Initiative = Random.Range(1, 6);
+                Players.Add(player);
+            }
+        } else {
+            Players = MenuPrincipalManager.players;
+            playerAmount = MenuPrincipalManager.playerAmount;
+        }
         //init players in game manager
-        for (int i = 0; i < MenuPrincipalManager.playerAmount; i++) {
+        for (int i = 0; i < playerAmount; i++) {
             Players[i].Money = 2558000;
         }
         //order game manager players by initiative
@@ -44,9 +64,19 @@ public class GameManager : MonoBehaviour
             var pieceIndicator = GetPlayerPieceIndicator(player);
             pieceIndicator.transform.position += new Vector3(0.75f * j, 0, 0);
             pieceIndicator.SetActive(true);
+            player.Cards = new List<Card>();
             GetPlayerPiece(player).SetActive(true);
             GetPlayerPanel(player).SetActive(true);
             UpdatePlayerPanel(player);
+            if(j == 1) {
+                player.Cards = new List<Card>();
+                player.Cards.Add(new Card());
+            }
+            if(j == 2) {
+                player.Cards = new List<Card>();
+                player.Cards.Add(new Card());
+                player.Cards.Add(new Card());
+            }
             j++;
         }
         if (tiles != null) {
@@ -80,6 +110,29 @@ public class GameManager : MonoBehaviour
         CurrentPlayerIndex++;
         if (CurrentPlayerIndex >= Players.Count) {
             CurrentPlayerIndex = 0;
+        }
+    }
+
+    public void UpdateInterface(){
+        var currentPlayer = GetCurrentPlayer();
+        UpdatePlayerPanel(currentPlayer);
+        HighlightCurrentPlayer();
+        UpdateCardsIndicatorCurrentPlayer();
+    }
+
+    public void UpdateCardsIndicatorCurrentPlayer(){
+        UpdateCardsIndicator(GetCurrentPlayer());
+    }
+
+    public void UpdateCardsIndicator(Player player){
+        if(player.Cards.Count > 0) {
+            cardsIndicator.SetActive(true);
+            cardsIndicator.transform.GetChild(0).gameObject.SetActive(true);
+            cardsIndicator.transform.GetChild(1).gameObject.SetActive(player.Cards.Count > 1);
+        } else {
+            cardsIndicator.SetActive(false);
+            cardsIndicator.transform.GetChild(0).gameObject.SetActive(false);
+            cardsIndicator.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 
