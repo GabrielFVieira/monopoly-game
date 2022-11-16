@@ -104,7 +104,7 @@ public class BusinessTile : BaseTile
         }
 
         Owner = player;
-        ownerIcon.GetComponent<SpriteRenderer>().color = player.GetColor();
+        ownerIcon.GetComponent<SpriteRenderer>().sprite = player.Icon;
         ownerIcon.SetActive(true);
     }
 

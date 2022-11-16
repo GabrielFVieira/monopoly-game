@@ -99,7 +99,6 @@ public class Tile : BaseTile {
         }
 
         Player curPlayer = gameManager.GetCurrentPlayer();
-
         if (curPlayer != null) {
             ShowDetails(curPlayer);            
         }
@@ -139,7 +138,7 @@ public class Tile : BaseTile {
         }
 
         Owner = player;
-        ownerIcon.GetComponent<SpriteRenderer>().color = player.GetColor();
+        ownerIcon.GetComponent<SpriteRenderer>().sprite = player.Icon;
         ownerIcon.SetActive(true);
     }
 
