@@ -1,36 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Dice : MonoBehaviour {
+public abstract class Dice : MonoBehaviour {
 
     // Array of dice sides sprites to load from Resources folder
-    [SerializeField] private Sprite[] diceSides;
+    [SerializeField] protected Sprite[] diceSides;
 
-    // Reference to sprite renderer to change sprites
-    [SerializeField] private SpriteRenderer Dice1Sprite;
-    [SerializeField] private SpriteRenderer Dice2Sprite;
-
-    [SerializeField] private bool enableRoll;
-    [SerializeField] private bool running;
-
-    [SerializeField] private GameManager gameManager;
-
-    private void Start() {
-        if (gameManager == null) {
-            gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-        }
-    }
-
-    // If you left click over the dice then RollTheDice coroutine is started
-    private void OnMouseUp()
-    {
-        if (EventSystem.current.IsPointerOverGameObject()) {
-            return;
-        }
-
-        Roll();
-    }
+    [SerializeField] protected bool enableRoll;
+    [SerializeField] protected bool running;
 
     public void Roll() {
         if (enableRoll && !running) {
@@ -45,18 +22,18 @@ public class Dice : MonoBehaviour {
 
     public void SetEnabled(bool value) {
         if (!value) {
-            Dice1Sprite.color = Color.gray;
-            Dice2Sprite.color = Color.gray;
+            UpdateDice1Color(Color.gray);
+            UpdateDice2Color(Color.gray);
         } else {
-            Dice1Sprite.color = Color.white;
-            Dice2Sprite.color = Color.white;
+            UpdateDice1Color(Color.white);
+            UpdateDice2Color(Color.white);
         }
 
         enableRoll = value;
     }
 
     // Coroutine that rolls the dice
-    private IEnumerator RollTheDice()
+    protected IEnumerator RollTheDice()
     {
         // Variable to contain random dice side number.
         // It needs to be assigned. Let it be 0 initially
@@ -72,8 +49,8 @@ public class Dice : MonoBehaviour {
             randomDiceSide2 = Random.Range(0, 5);
 
             // Set sprite to upper face of dice from array according to random value
-            Dice1Sprite.sprite = diceSides[randomDiceSide];
-            Dice2Sprite.sprite = diceSides[randomDiceSide2];
+            UpdateDice1Image(diceSides[randomDiceSide]);
+            UpdateDice2Image(diceSides[randomDiceSide2]);
 
             // Pause before next itteration
             yield return new WaitForSeconds(0.05f);
@@ -89,11 +66,16 @@ public class Dice : MonoBehaviour {
         // Show final dice value in Console
         Debug.Log("Dice result: " + result);
 
-        yield return new WaitForSeconds(0.3f);
-
-        gameManager.DiceRollCallback(result);
+        Action(result);
 
         running = false;
         SetEnabled(false);
     }
+
+    protected abstract void Action(int result);
+    protected abstract void UpdateDice1Image(Sprite sprite);
+    protected abstract void UpdateDice2Image(Sprite sprite);
+    protected abstract void UpdateDice1Color(Color color);
+    protected abstract void UpdateDice2Color(Color color);
 }
+

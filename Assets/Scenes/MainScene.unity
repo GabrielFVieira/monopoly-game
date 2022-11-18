@@ -2668,7 +2668,7 @@ MonoBehaviour:
   - {fileID: 650230355}
   currencyPanel: {fileID: 744492565}
   positionIndicators: {fileID: 681058096}
-  dice: {fileID: 1457675964}
+  dice: {fileID: 1457675966}
   playerInitialMoney: 2558000
   curPlayerIndex: 0
   playerPrefab: {fileID: 1441759206692902224, guid: 3f1d88fc71f6a5745a9dbc390c62ec6c, type: 3}
@@ -9896,8 +9896,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1457675961}
-  - component: {fileID: 1457675964}
   - component: {fileID: 1457675965}
+  - component: {fileID: 1457675966}
   m_Layer: 0
   m_Name: Dice
   m_TagString: Untagged
@@ -9922,30 +9922,6 @@ Transform:
   m_Father: {fileID: 1346685769}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1457675964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457675960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65432556272982443b80855654f33b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diceSides:
-  - {fileID: -1398646942, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
-  - {fileID: -1616089914, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
-  - {fileID: 1064968196, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
-  - {fileID: -214673944, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
-  - {fileID: 1852561974, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
-  - {fileID: 1704807964, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
-  Dice1Sprite: {fileID: 1774234361}
-  Dice2Sprite: {fileID: 1685859216}
-  enableRoll: 0
-  running: 0
-  gameManager: {fileID: 306773370}
 --- !u!61 &1457675965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9972,6 +9948,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.48809, y: 3.2261553}
   m_EdgeRadius: 0
+--- !u!114 &1457675966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457675960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2132a6fbfc24904699b5b78c76b8ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceSides:
+  - {fileID: -1398646942, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
+  - {fileID: -1616089914, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
+  - {fileID: 1064968196, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
+  - {fileID: -214673944, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
+  - {fileID: 1852561974, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
+  - {fileID: 1704807964, guid: 8c386e5ae8e478d48a80272fe62eed29, type: 3}
+  enableRoll: 0
+  running: 0
+  gameManager: {fileID: 306773370}
+  dice1Sprite: {fileID: 1774234361}
+  dice2Sprite: {fileID: 1685859216}
 --- !u!1 &1458583041
 GameObject:
   m_ObjectHideFlags: 0

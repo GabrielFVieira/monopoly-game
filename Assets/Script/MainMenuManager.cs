@@ -6,88 +6,83 @@ using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class MenuPrincipalManager : MonoBehaviour
-{
-    public static int playerAmount;
-    public static List<Player> players = new List<Player>();
-    [SerializeField] private string Jogo;
+public class MainMenuManager : MonoBehaviour {
+    public static List<PlayerChoice> players = new();
+
+    public static int readyPlayersAmount = 0;
+
+    public AudioMixer mainMixer;
+
     [SerializeField] private GameObject painelMenuInicial;
     [SerializeField] private GameObject painelOpcoes;
     [SerializeField] private GameObject selectPlayers;
     [SerializeField] private GameObject setPlayers;
     [SerializeField] private GameObject player3Setup;
     [SerializeField] private GameObject player4Setup;
+    [SerializeField] private string rulesURL = "https://blog.estrela.com.br/como-jogar-banco-imobiliario/";
 
 
-
-    public void Jogar()
-    {
+    public void Play() {
         painelMenuInicial.SetActive(false);
         selectPlayers.SetActive(true);
-        // SceneManager.LoadScene(Jogo);
     }
-    public void SelectPlayerAmount(int amount)
-    {
-        playerAmount = amount;
-        players = new List<Player>();
-        for (int i = 0; i < playerAmount; i++)
-        {
-            Player player = new Player();
+
+    public void SelectPlayerAmount(int amount) {
+        players = new();
+        for (int i = 0; i < amount; i++) {
+            PlayerChoice player = new();
             players.Add(player);
         }
-        selectPlayers.SetActive(false);
-        setPlayers.SetActive(true);
-        if(playerAmount >= 3) {
+
+        if (amount >= 3) {
             player3Setup.SetActive(true);
         }
-        if(playerAmount >= 4) {
+        if (amount >= 4) {
             player4Setup.SetActive(true);
         }
-        //SceneManager.LoadScene(Jogo);
+
+        selectPlayers.SetActive(false);
+        setPlayers.SetActive(true);
     }
+
     public static void LoadGame() {
         SceneManager.LoadScene("MainScene");
     }
-    public void AbrirOpcoes()
-    {
+
+    public void OpenOptions() {
         painelMenuInicial.SetActive(false);
         painelOpcoes.SetActive(true);
     }
-    public void FecharOpcoes()
-    {
+
+    public void CloseOptions() {
         painelOpcoes.SetActive(false);
         painelMenuInicial.SetActive(true);
     }
-    public void SairJogo()
-    {
-        Debug.Log(" Sair do Jogo ");
+
+    public void ExitGame() {
         Application.Quit();
     }
-    public void SetFullscreen(bool isFullscreen)
-    {
+
+    public void SetFullscreen(bool isFullscreen) {
         Screen.fullScreen = isFullscreen;
 
-        if (Screen.fullScreen)
-        {
+        if (Screen.fullScreen) {
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-        }
-        else
-        {
+        } else {
             Screen.fullScreenMode = FullScreenMode.Windowed;
         }
     }
 
-    public void SetQuality(int qualityIndex)
-    {
+    public void SetQuality(int qualityIndex) {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
-    public void OpenPage()
-    {
-        Application.OpenURL("https://blog.estrela.com.br/como-jogar-banco-imobiliario/");
+
+    public void OpenPage() {
+        Application.OpenURL(rulesURL);
     }
-    public AudioMixer mainMixer;
-    public void SetVolume(float volume)
-    {
+
+    
+    public void SetVolume(float volume) {
         mainMixer.SetFloat("volume", volume);
     }
 }

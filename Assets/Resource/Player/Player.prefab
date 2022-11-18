@@ -100,19 +100,21 @@ MonoBehaviour:
   <Id>k__BackingField: 0
   <Name>k__BackingField: 
   <Position>k__BackingField: 0
+  <Color>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 0}
   <Money>k__BackingField: 0
   ownedPropreties: []
   spriteColors:
-  - color: 0
+  - color: 1
     sprite: {fileID: -592760391, guid: 5926a405427e8b04887f54965fccffcc, type: 3}
     icon: {fileID: -993052966, guid: ccc72eaa00ef4b6449901acf62a865fa, type: 3}
-  - color: 1
+  - color: 2
     sprite: {fileID: -2097631916, guid: 5926a405427e8b04887f54965fccffcc, type: 3}
     icon: {fileID: -383641861, guid: ccc72eaa00ef4b6449901acf62a865fa, type: 3}
-  - color: 2
+  - color: 3
     sprite: {fileID: 1520326842, guid: 5926a405427e8b04887f54965fccffcc, type: 3}
     icon: {fileID: 110419128, guid: ccc72eaa00ef4b6449901acf62a865fa, type: 3}
-  - color: 3
+  - color: 4
     sprite: {fileID: -1769546987, guid: 5926a405427e8b04887f54965fccffcc, type: 3}
     icon: {fileID: -382136992, guid: ccc72eaa00ef4b6449901acf62a865fa, type: 3}
+  <IsMoving>k__BackingField: 0

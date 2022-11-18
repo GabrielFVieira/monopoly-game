@@ -54,10 +54,10 @@ public class GameManager : MonoBehaviour
     }
 
     private void InitPlayers() {
-        List<PlayerChoice> choices = PlayersMock();
+        List<PlayerChoice> choices = MainMenuManager.players;
 
-        foreach (PlayerChoice p in choices) {
-            p.Initiative = Random.Range(1, 6);
+        if (choices == null || choices.Count == 0) {
+            choices = PlayersMock();
         }
 
         choices.Sort((x, y) => y.Initiative.CompareTo(x.Initiative));
@@ -91,24 +91,28 @@ public class GameManager : MonoBehaviour
         PlayerChoice choice1 = new();
         choice1.Name = "test";
         choice1.Color = PlayerColor.BLUE;
+        choice1.Initiative = Random.Range(1, 6);
 
         choices.Add(choice1);
 
         PlayerChoice choice2 = new();
         choice2.Name = "test 2";
         choice2.Color = PlayerColor.YELLOW;
+        choice2.Initiative = Random.Range(1, 6);
 
         choices.Add(choice2);
 
         PlayerChoice choice3 = new();
         choice3.Name = "test 3";
         choice3.Color = PlayerColor.GREEN;
+        choice3.Initiative = Random.Range(1, 6);
 
         choices.Add(choice3);
 
         PlayerChoice choice4 = new();
         choice4.Name = "test 4";
         choice4.Color = PlayerColor.RED;
+        choice4.Initiative = Random.Range(1, 6);
 
         choices.Add(choice4);
 

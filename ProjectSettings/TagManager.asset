@@ -11,6 +11,10 @@ TagManager:
   - Player3Setup
   - Player4Setup
   - CurrencyPanel
+  - Piece1
+  - Piece2
+  - Piece3
+  - Piece4
   layers:
   - Default
   - TransparentFX
