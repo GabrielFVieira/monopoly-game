@@ -143,10 +143,11 @@ public class TileDetailController : MonoBehaviour {
     private void UpdateButtons(Tile tile, Player player) {
         ClearButtons();
         TileStatus status = tile.Status;
+        bool showButton = !player.AI;
 
         if (status == TileStatus.NOT_BOUGHT) {
             if (player.Position == tile.GetId()) {
-                buyBtn.SetActive(true);
+                buyBtn.SetActive(showButton);
 
                 return;
             }
@@ -176,17 +177,17 @@ public class TileDetailController : MonoBehaviour {
 
         switch (status) {
             case TileStatus.PURCHASED:
-                sellBtn.SetActive(true);
-                plusBtn.SetActive(true);
+                sellBtn.SetActive(showButton);
+                plusBtn.SetActive(showButton);
                 buyOptionsHouse.SetActive(true);
                 break;
             case TileStatus.ONE_HOUSE: case TileStatus.TWO_HOUSES: case TileStatus.THREE_HOUSES: case TileStatus.FOUR_HOUSES:
-                minusBtn.SetActive(true);
-                plusBtn.SetActive(true);
+                minusBtn.SetActive(showButton);
+                plusBtn.SetActive(showButton);
                 buyOptionsHouse.SetActive(true);
                 break;
             case TileStatus.HOTEL:
-                minusBtn.SetActive(true);
+                minusBtn.SetActive(showButton);
                 buyOptionsHotel.SetActive(true);
                 break;
         }

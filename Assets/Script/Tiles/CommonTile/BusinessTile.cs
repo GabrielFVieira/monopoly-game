@@ -82,7 +82,7 @@ public class BusinessTile : BaseTile
 
         Player curPlayer = gameManager.GetCurrentPlayer();
 
-        if (curPlayer != null) {
+        if (curPlayer != null && !curPlayer.AI) {
             ShowDetails(curPlayer);
         }
     }

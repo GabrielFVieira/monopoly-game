@@ -16,12 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PositionIndicators positionIndicators;
     [SerializeField]
-    private Dice dice;
+    private GameDice dice;
 
     [SerializeField] private int playerInitialMoney = 2558000;
     [SerializeField] private int curPlayerIndex = 0;
-
-    private int playerInitialSortOrder;
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -32,8 +30,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInitialSortOrder = playerPrefab.GetComponent<SpriteRenderer>().sortingOrder;
-
         InitTiles();
         InitPlayers();
         UpdatedCurrencyPanel();
@@ -65,25 +61,18 @@ public class GameManager : MonoBehaviour
         players = new Player[choices.Count];
         for (int i = 0; i < choices.Count; i++) {
             PlayerChoice choice = choices[i];
-            
-            if (!choice.AI) {
-                players[i] = NewHumanPlayer(i, choice);
-            }
+            players[i] = NewPlayer(i, choice);
         }
     }
 
-    private Player NewHumanPlayer(int index, PlayerChoice choice) {
+    private Player NewPlayer(int index, PlayerChoice choice) {
         GameObject player = Instantiate(playerPrefab, playersInitialPositions[index].position, Quaternion.identity);
-        player.gameObject.name = GetPlayerName(choice.Color);
+        player.gameObject.name = "Player (" + choice.Color + ")";
 
         Player playerScript = player.GetComponent<Player>();
-        playerScript.SetupPlayer(index, choice.Name, playerInitialMoney, choice.Color, tiles);
+        playerScript.SetupPlayer(index, choice.Name, playerInitialMoney, choice.Color, choice.AI, tiles);
 
         return playerScript;
-    }
-
-    private string GetPlayerName(PlayerColor color) {
-        return "Player (" + color + ")";
     }
 
     private List<PlayerChoice> PlayersMock() {
@@ -124,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Improve this logic
         Player player = GetCurrentPlayer();
-        if (!player.IsMoving && !dice.GetEnabled()) {
+        if (!player.IsMoving && !player.AI && !dice.GetEnabled()) {
             if (!passTurnBtn.activeSelf) {
                 passTurnBtn.SetActive(true);
             }
@@ -145,7 +134,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void PassTurn() {
-        GetCurrentPlayer().GetComponent<SpriteRenderer>().sortingOrder = playerInitialSortOrder;
+        Player curPlayer = GetCurrentPlayer();
+        curPlayer.StopRound();
 
         NextPlayer();
         StartRound();
@@ -153,9 +143,11 @@ public class GameManager : MonoBehaviour
 
     private void StartRound() {
         positionIndicators.HighlightIndicator(curPlayerIndex);
-        GetCurrentPlayer().GetComponent<SpriteRenderer>().sortingOrder += 1;
 
+        Player curPlayer = GetCurrentPlayer();
         dice.SetEnabled(true);
+        dice.Clickable = !curPlayer.AI;
+        curPlayer.StartRound();
     }
 
     public void DiceRollCallback(int result) {

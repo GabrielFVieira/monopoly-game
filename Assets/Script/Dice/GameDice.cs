@@ -12,6 +12,8 @@ public class GameDice : Dice
     [SerializeField] private SpriteRenderer dice1Sprite;
     [SerializeField] private SpriteRenderer dice2Sprite;
 
+    public bool Clickable = true;
+
     void Start()
     {
         if (gameManager == null) {
@@ -25,7 +27,9 @@ public class GameDice : Dice
             return;
         }
 
-        Roll();
+        if (Clickable) {
+            Roll();
+        }
     }
 
     protected override void Action(int result) {

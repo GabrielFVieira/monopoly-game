@@ -33,11 +33,24 @@ public class Player : MonoBehaviour
     [field: SerializeField]
     public bool IsMoving { get; private set; }
 
-    public void SetupPlayer(int id, string name, int money, PlayerColor color, BaseTile[] tiles) {
+    [SerializeField]
+    private int initialSortOrder = 3;
+
+    [field: SerializeField]
+    public bool AI { get; private set; }
+
+    [SerializeField]
+    private GameDice dice;
+
+    [SerializeField]
+    private GameManager gameManager;
+
+    public void SetupPlayer(int id, string name, int money, PlayerColor color, bool ai, BaseTile[] tiles) {
         Id = id;
         Name = name;
         Money = money;
         Color = color;
+        AI = ai;
 
         foreach (PlayerColorSprite cs in spriteColors) {
             if (Color == cs.color) {
@@ -47,14 +60,15 @@ public class Player : MonoBehaviour
             }
         }
 
-        this.tiles = tiles;
+        this.tiles = tiles;        
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void Awake() {
+        dice = GameObject.FindGameObjectWithTag("GameDice").GetComponent<GameDice>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        initialSortOrder = GetComponent<SpriteRenderer>().sortingOrder;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -82,5 +96,51 @@ public class Player : MonoBehaviour
         }
 
         IsMoving = false;
+        PostMove();
+    }
+
+    private void StartHighlight() {
+        GetComponent<SpriteRenderer>().sortingOrder = initialSortOrder + 1;
+    }
+
+    private void StopHighlight() {
+        GetComponent<SpriteRenderer>().sortingOrder = initialSortOrder;
+    }
+
+    public void StartRound() {
+        StartHighlight();
+
+        if (AI) {
+            dice.Roll();
+        }
+    }
+
+    private void PostMove() {
+        if (!AI) {
+            return;
+        }
+
+        gameManager.PassTurn();
+    }
+
+    public void StopRound() {
+        StopHighlight();
+    }
+
+    public void BuyPlace() {
+    }
+
+    public void Buy() {
+    }
+
+    public void Sell() {
+    }
+
+    // add money to player
+    public void Receive(int amount) {
+        Money += amount;
+    }
+
+    public void Die() {
     }
 }

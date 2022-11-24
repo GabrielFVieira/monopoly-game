@@ -70,6 +70,10 @@ public class PlayerSetup : MonoBehaviour {
         MainMenuManager.players[playerIndex].Name = name;        
     }
 
+    public void SetAI() {
+        MainMenuManager.players[playerIndex].AI = !MainMenuManager.players[playerIndex].AI;
+    }
+
     public void SetReady() {
         MainMenuManager.readyPlayersAmount++;
         if (MainMenuManager.readyPlayersAmount == MainMenuManager.players.Count) {

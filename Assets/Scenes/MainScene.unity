@@ -9900,7 +9900,7 @@ GameObject:
   - component: {fileID: 1457675966}
   m_Layer: 0
   m_Name: Dice
-  m_TagString: Untagged
+  m_TagString: GameDice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9972,6 +9972,7 @@ MonoBehaviour:
   gameManager: {fileID: 306773370}
   dice1Sprite: {fileID: 1774234361}
   dice2Sprite: {fileID: 1685859216}
+  Clickable: 1
 --- !u!1 &1458583041
 GameObject:
   m_ObjectHideFlags: 0

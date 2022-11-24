@@ -99,7 +99,7 @@ public class Tile : BaseTile {
         }
 
         Player curPlayer = gameManager.GetCurrentPlayer();
-        if (curPlayer != null) {
+        if (curPlayer != null && !curPlayer.AI) {
             ShowDetails(curPlayer);            
         }
     }
