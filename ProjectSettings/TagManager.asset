@@ -10,6 +10,8 @@ TagManager:
   - Player2Setup
   - Player3Setup
   - Player4Setup
+  - CurrencyPanel
+  - GameDice
   layers:
   - Default
   - TransparentFX

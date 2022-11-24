@@ -143,10 +143,11 @@ public class TileDetailController : MonoBehaviour {
     private void UpdateButtons(Tile tile, Player player) {
         ClearButtons();
         TileStatus status = tile.Status;
+        bool showButton = !player.AI;
 
         if (status == TileStatus.NOT_BOUGHT) {
-            if (gameManager.GetPlayerCurPosition(player.GetId()) == tile.GetId()) {
-                buyBtn.SetActive(true);
+            if (player.Position == tile.GetId()) {
+                buyBtn.SetActive(showButton);
 
                 return;
             }
@@ -165,9 +166,9 @@ public class TileDetailController : MonoBehaviour {
         }
 
         Player owner = tile.Owner;
-        if (owner != null && owner.GetId() != player.GetId()) {
+        if (owner != null && owner.Id != player.Id) {
             ownerText.text = ownerWord;
-            ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
+            ownerIcon.GetComponent<Image>().sprite = owner.Icon;
             ownerIcon.SetActive(true);
             ownerPanel.SetActive(true);
 
@@ -176,17 +177,17 @@ public class TileDetailController : MonoBehaviour {
 
         switch (status) {
             case TileStatus.PURCHASED:
-                sellBtn.SetActive(true);
-                plusBtn.SetActive(true);
+                sellBtn.SetActive(showButton);
+                plusBtn.SetActive(showButton);
                 buyOptionsHouse.SetActive(true);
                 break;
             case TileStatus.ONE_HOUSE: case TileStatus.TWO_HOUSES: case TileStatus.THREE_HOUSES: case TileStatus.FOUR_HOUSES:
-                minusBtn.SetActive(true);
-                plusBtn.SetActive(true);
+                minusBtn.SetActive(showButton);
+                plusBtn.SetActive(showButton);
                 buyOptionsHouse.SetActive(true);
                 break;
             case TileStatus.HOTEL:
-                minusBtn.SetActive(true);
+                minusBtn.SetActive(showButton);
                 buyOptionsHotel.SetActive(true);
                 break;
         }

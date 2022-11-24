@@ -78,7 +78,7 @@ public class BusinessDetailController : MonoBehaviour {
         TileStatus status = tile.Status;
 
         if (status == TileStatus.NOT_BOUGHT) {
-            if (gameManager.GetPlayerCurPosition(player.GetId()) == tile.GetId()) {
+            if (player.Position == tile.GetId()) {
                 buyBtn.SetActive(true);
 
                 return;
@@ -98,9 +98,9 @@ public class BusinessDetailController : MonoBehaviour {
         }
 
         Player owner = tile.Owner;
-        if (owner != null && owner.GetId() != player.GetId()) {
+        if (owner != null && owner.Id != player.Id) {
             ownerText.text = "Proprietário:";
-            ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
+            ownerIcon.GetComponent<Image>().sprite = owner.Icon;
             ownerIcon.SetActive(true);
             ownerPanel.SetActive(true);
 

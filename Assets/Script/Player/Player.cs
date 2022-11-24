@@ -1,119 +1,146 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Player : MonoBehaviour {
-    [SerializeField]
-    private int Id;
+public class Player : MonoBehaviour
+{
+    [field: SerializeField]
+    public int Id { get; private set; }
 
-    public string Name { get; set; }
+    [field: SerializeField]
+    public string Name { get; private set; }
 
-    public string Piece { get; set; }
+    [field: SerializeField]
+    public int Position { get; private set; }
 
-    public List<Card> Cards { get; set; }
+    [field: SerializeField]
+    public PlayerColor Color { get; private set; }
 
-    public int Position { get; set; }
+    [field: SerializeField]
+    public Sprite Icon { get; private set; }
 
-    public int Initiative { get; set; }
-
-    public bool Ready { get; set; }
-
-    [SerializeField]
-    private Color color;
-
-    [SerializeField]
-    public long Money;
+    [field: SerializeField]
+    public int Money { get; set; }
 
     [SerializeField]
     private Tile[] ownedPropreties;
 
-    public Color GetColor() {
-        return color;
-    }
+    [SerializeField]
+    private PlayerColorSprite[] spriteColors;
 
-    public void SetColor(Color c) {
-        color = c;
-    }
+    private BaseTile[] tiles;
 
-    public Sprite GetImage() {
-        return GetComponent<SpriteRenderer>().sprite;
-    }
+    [field: SerializeField]
+    public bool IsMoving { get; private set; }
 
-    // public void RollDiceMovement() {
-    //     bool equal = true;
-    //     int rollTimes = 1;
-    //     int movement = 0;
-    //     int dice1 = 0;
-    //     int dice2 = 0;
-    //     while(equal) {
-    //         // roll both dices
-    //         if(rollTimes >= 3) {
-    //             // go to jail
-    //             this.Position = 10; // position to go to jail
-    //             equal = false;
-    //             return;
-    //         }
-    //         dice1 = Random.Range(1, 7);
-    //         dice2 = Random.Range(1, 7);
-    //         equal = dice1 == dice2;
-    //         rollTimes++;
-    //     }
-    //     movement = dice1 + dice2;
-    //     Move(movement);
-    // }
+    [SerializeField]
+    private int initialSortOrder = 3;
 
-    public void Move(int movement) {
-        // move player
-    }
+    [field: SerializeField]
+    public bool AI { get; private set; }
 
-    public void BuyPlace() {
+    [SerializeField]
+    private GameDice dice;
 
-    }
+    [SerializeField]
+    private GameManager gameManager;
 
-    public void Buy() {
+    public void SetupPlayer(int id, string name, int money, PlayerColor color, bool ai, BaseTile[] tiles) {
+        Id = id;
+        Name = name;
+        Money = money;
+        Color = color;
+        AI = ai;
 
-    }
-
-    public void Sell() {
-
-    }
-
-    public int GetId() {
-        return Id;
-    }
-
-    public void SetId(int id) {
-        this.Id = id;
-    }
-
-    public void Pay(int amount, Player? player) {
-        if (this.Money >= amount) {
-            this.Money -= amount;
-            if(player != null) {
-                player.Receive(amount);
-            } else {
-                // Bank
+        foreach (PlayerColorSprite cs in spriteColors) {
+            if (Color == cs.color) {
+                GetComponent<SpriteRenderer>().sprite = cs.sprite;
+                Icon = cs.icon;
+                break;
             }
-        } else {
-            // Player is bankrupt, e.g: died, init game options to recover or game over
-            // TODO: init game options to recover, for now, the player just dies
-            if(this.Money > 0 && player != null) {
-                // if dying and was paying to another player
-                // give all remaining money to the other player
-                player.Receive(this.Money);
-            }
-            this.Money = 0;
-            Die();
         }
+
+        this.tiles = tiles;        
     }
 
-    // add money to player
-    public void Receive(long amount)
+    public void Awake() {
+        dice = GameObject.FindGameObjectWithTag("GameDice").GetComponent<GameDice>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        initialSortOrder = GetComponent<SpriteRenderer>().sortingOrder;
+    }
+
+
+    // Update is called once per frame
+    void Update()
     {
-        this.Money += amount;
-    }
-
-    public void Die() {
         
     }
 
+    public void MovePosition(int tileNum) {
+        StartCoroutine(Move(tileNum));
+    }
+
+    public IEnumerator Move(int tileNum) {
+        IsMoving = true;
+
+        for (int i = 1; i <= tileNum; i++) {
+            if (Position >= tiles.Length - 1) {
+                Position = 0;
+                transform.position = tiles[0].GetWaypoint().position;
+            } else {
+                transform.position = tiles[Position + 1].GetWaypoint().position;
+                Position++;
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        IsMoving = false;
+        PostMove();
+    }
+
+    private void StartHighlight() {
+        GetComponent<SpriteRenderer>().sortingOrder = initialSortOrder + 1;
+    }
+
+    private void StopHighlight() {
+        GetComponent<SpriteRenderer>().sortingOrder = initialSortOrder;
+    }
+
+    public void StartRound() {
+        StartHighlight();
+
+        if (AI) {
+            dice.Roll();
+        }
+    }
+
+    private void PostMove() {
+        if (!AI) {
+            return;
+        }
+
+        gameManager.PassTurn();
+    }
+
+    public void StopRound() {
+        StopHighlight();
+    }
+
+    public void BuyPlace() {
+    }
+
+    public void Buy() {
+    }
+
+    public void Sell() {
+    }
+
+    // add money to player
+    public void Receive(int amount) {
+        Money += amount;
+    }
+
+    public void Die() {
+    }
 }
