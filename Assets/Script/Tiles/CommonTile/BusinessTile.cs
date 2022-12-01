@@ -88,7 +88,13 @@ public class BusinessTile : BaseTile
     }
 
     public override void ExecuteAction(Player player) {
-        ShowDetails(player);
+        // TODO: Multiply the value by the dice result
+        if (Owner != null && Owner.Id != player.Id) {
+            Debug.Log("Player " + player.Name + " paying $" + Utils.FormatPrice(ValueMultiplier) + " to player " + Owner.Name);
+
+            player.Pay(ValueMultiplier);
+            Owner.Receive(ValueMultiplier);
+        }
     }
 
     private void ShowDetails(Player player) {
@@ -115,11 +121,13 @@ public class BusinessTile : BaseTile
         }
 
         Status = TileStatus.PURCHASED;
+        player.Pay(Price);
         UpdateOwner(player);
     }
 
     public void SellProperty() {
         Status = TileStatus.NOT_BOUGHT;
+        Owner.Receive(Price / 2);
         UpdateOwner(null);
     }
 }

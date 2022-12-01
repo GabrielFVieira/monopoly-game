@@ -32,6 +32,7 @@ public class PositionIndicators : MonoBehaviour
         for (int i = 0; i < playerOrder.Length; i++) {
             GameObject indicator = GetIndicator(playerOrder[i].Color);
             indicator.transform.position += new Vector3(space * i, 0, 0);
+            indicator.transform.GetChild(0).gameObject.SetActive(playerOrder[i].AI);
             indicator.SetActive(true);
 
             order[i] = indicator;

@@ -87,6 +87,12 @@ public class Player : MonoBehaviour
             if (Position >= tiles.Length - 1) {
                 Position = 0;
                 transform.position = tiles[0].GetWaypoint().position;
+
+                if (i != tileNum) {
+                    // Tiles 0 is the Go tile, when passing throw it you should call it's action
+                    tiles[0].ExecuteAction(this);
+                }
+
             } else {
                 transform.position = tiles[Position + 1].GetWaypoint().position;
                 Position++;
@@ -116,9 +122,13 @@ public class Player : MonoBehaviour
     }
 
     private void PostMove() {
+        tiles[Position].ExecuteAction(this);
+
         if (!AI) {
             return;
         }
+
+
 
         gameManager.PassTurn();
     }
@@ -139,6 +149,13 @@ public class Player : MonoBehaviour
     // add money to player
     public void Receive(int amount) {
         Money += amount;
+        gameManager.UpdateCurrencyPanel(this);
+    }
+
+    // remove money from the player
+    public void Pay(int amount) {
+        Money -= amount;
+        gameManager.UpdateCurrencyPanel(this);
     }
 
     public void Die() {

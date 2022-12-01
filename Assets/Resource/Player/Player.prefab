@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 320843825
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -592760391, guid: 5926a405427e8b04887f54965fccffcc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -118,4 +118,7 @@ MonoBehaviour:
     sprite: {fileID: -1769546987, guid: 5926a405427e8b04887f54965fccffcc, type: 3}
     icon: {fileID: -382136992, guid: ccc72eaa00ef4b6449901acf62a865fa, type: 3}
   <IsMoving>k__BackingField: 0
-  initialSortOrder: 3
+  initialSortOrder: 6
+  <AI>k__BackingField: 0
+  dice: {fileID: 0}
+  gameManager: {fileID: 0}

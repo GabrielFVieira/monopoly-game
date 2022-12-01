@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameDice dice;
 
-    [SerializeField] private int playerInitialMoney = 2558000;
+    [SerializeField] private int playerInitialMoney = 25000;
     [SerializeField] private int curPlayerIndex = 0;
 
     [SerializeField]
@@ -32,15 +32,19 @@ public class GameManager : MonoBehaviour
     {
         InitTiles();
         InitPlayers();
-        UpdatedCurrencyPanel();
+        UpdateCurrencyPanel();
         positionIndicators.SetupIndicators(players);
         StartRound();
     }
 
-    private void UpdatedCurrencyPanel() {
+    private void UpdateCurrencyPanel() {
         foreach (Player player in players) {
             currencyPanel.UpdateCurrency(player);
         }
+    }
+
+    public void UpdateCurrencyPanel(Player player) {
+        currencyPanel.UpdateCurrency(player);
     }
 
     private void InitTiles() {
@@ -81,6 +85,7 @@ public class GameManager : MonoBehaviour
         choice1.Name = "test";
         choice1.Color = PlayerColor.BLUE;
         choice1.Initiative = Random.Range(1, 6);
+        choice1.AI = true;
 
         choices.Add(choice1);
 
@@ -88,6 +93,7 @@ public class GameManager : MonoBehaviour
         choice2.Name = "test 2";
         choice2.Color = PlayerColor.YELLOW;
         choice2.Initiative = Random.Range(1, 6);
+        choice2.AI = true;
 
         choices.Add(choice2);
 
