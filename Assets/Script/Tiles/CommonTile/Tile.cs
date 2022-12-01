@@ -99,14 +99,40 @@ public class Tile : BaseTile {
         }
 
         Player curPlayer = gameManager.GetCurrentPlayer();
-
-        if (curPlayer != null) {
+        if (curPlayer != null && !curPlayer.AI) {
             ShowDetails(curPlayer);            
         }
     }
 
     public override void ExecuteAction(Player player) {
-        // TODO: Cobrar jogador caso seja pertencente a outro
+        if (Owner != null && Owner.Id != player.Id) {
+            int value;
+            switch (Status) {
+                case TileStatus.ONE_HOUSE:
+                    value = Details.House1;
+                    break;
+                case TileStatus.TWO_HOUSES:
+                    value = Details.House2;
+                    break;
+                case TileStatus.THREE_HOUSES:
+                    value = Details.House3;
+                    break;
+                case TileStatus.FOUR_HOUSES:
+                    value = Details.House4;
+                    break;
+                case TileStatus.HOTEL:
+                    value = Details.Hotel;
+                    break;
+                default:
+                    value = Details.Rent;
+                    break;
+            }
+
+            Debug.Log("Player " + player.Name + " paying $" + Utils.FormatPrice(value) + " to player " + Owner.Name);
+
+            player.Pay(value);
+            Owner.Receive(value);
+        }
     }
 
     private void ShowDetails(Player player) {
@@ -139,7 +165,7 @@ public class Tile : BaseTile {
         }
 
         Owner = player;
-        ownerIcon.GetComponent<SpriteRenderer>().color = player.GetColor();
+        ownerIcon.GetComponent<SpriteRenderer>().sprite = player.Icon;
         ownerIcon.SetActive(true);
     }
 
@@ -150,22 +176,36 @@ public class Tile : BaseTile {
         }
 
         Status = TileStatus.PURCHASED;
+        player.Pay(Price);
         UpdateOwner(player);
     }
 
     public void SellProperty() {
         Status = TileStatus.NOT_BOUGHT;
+        Owner.Receive(Price / 2);
         UpdateOwner(null);
     }
 
     public void UpgradeProperty() {
         if (Status >= TileStatus.PURCHASED && Status < TileStatus.HOTEL) {
             Status++;
+
+            if (TileStatus.HOTEL == Status) {
+                Owner.Pay(Details.HotelPurchaseValue);
+            } else {
+                Owner.Pay(Details.HousePurchaseValue);
+            }
         }                
     }
 
     public void DowngradeProperty() {
         if (Status > TileStatus.PURCHASED) {
+            if (TileStatus.HOTEL == Status) {
+                Owner.Receive(Details.HotelPurchaseValue / 2);
+            } else {
+                Owner.Receive(Details.HousePurchaseValue / 2);
+            }
+
             Status--;
         }
     }

@@ -16,6 +16,9 @@ public class BusinessDetailController : MonoBehaviour {
     private TextMeshProUGUI priceText;
 
     [SerializeField]
+    private TextMeshProUGUI costText;
+
+    [SerializeField]
     private GameObject buyBtn;
 
     [SerializeField]
@@ -78,9 +81,10 @@ public class BusinessDetailController : MonoBehaviour {
         TileStatus status = tile.Status;
 
         if (status == TileStatus.NOT_BOUGHT) {
-            if (gameManager.GetPlayerCurPosition(player.GetId()) == tile.GetId()) {
+            if (player.Position == tile.GetId() && !player.IsMoving && !player.AI) {
                 buyBtn.SetActive(true);
-
+                costText.text = Utils.FormatPrice(tile.Price);
+                costText.transform.parent.gameObject.SetActive(true);
                 return;
             }
 
@@ -98,15 +102,17 @@ public class BusinessDetailController : MonoBehaviour {
         }
 
         Player owner = tile.Owner;
-        if (owner != null && owner.GetId() != player.GetId()) {
+        if (owner != null && owner.Id != player.Id) {
             ownerText.text = "Proprietário:";
-            ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
+            ownerIcon.GetComponent<Image>().sprite = owner.Icon;
             ownerIcon.SetActive(true);
             ownerPanel.SetActive(true);
 
             return;
-        } else {
+        } else if (!player.IsMoving && !player.AI) {
             sellBtn.SetActive(true);
+            costText.text = Utils.FormatPrice(tile.Price / 2);
+            costText.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -152,5 +158,6 @@ public class BusinessDetailController : MonoBehaviour {
         sellBtn.SetActive(false);
         ownerIcon.SetActive(false);
         ownerPanel.SetActive(false);
+        costText.transform.parent.gameObject.SetActive(false);
     }
 }

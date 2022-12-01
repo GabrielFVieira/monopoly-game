@@ -24,6 +24,12 @@ public class TileDetailController : MonoBehaviour {
     private TextMeshProUGUI priceText;
 
     [SerializeField]
+    private TextMeshProUGUI costValueText;
+
+    [SerializeField]
+    private TextMeshProUGUI sellValueText;
+
+    [SerializeField]
     private GameObject buyBtn;
 
     [SerializeField]
@@ -48,7 +54,13 @@ public class TileDetailController : MonoBehaviour {
     private GameObject plusBtn;
 
     [SerializeField]
+    private TextMeshProUGUI plusPriceText;
+
+    [SerializeField]
     private GameObject minusBtn;
+
+    [SerializeField]
+    private TextMeshProUGUI minusPriceText;
 
     [SerializeField]
     private GameObject buyOptionsHouse;
@@ -138,14 +150,17 @@ public class TileDetailController : MonoBehaviour {
 
         infoText.text = fullInfoText;
         priceText.text = fullPriceText;
+        costValueText.text = Utils.FormatPrice(tile.Price);
+        sellValueText.text = Utils.FormatPrice(tile.Price / 2);
     }
 
     private void UpdateButtons(Tile tile, Player player) {
         ClearButtons();
         TileStatus status = tile.Status;
+        bool showButton = !player.AI;
 
         if (status == TileStatus.NOT_BOUGHT) {
-            if (gameManager.GetPlayerCurPosition(player.GetId()) == tile.GetId()) {
+            if (player.Position == tile.GetId() && !player.IsMoving && !player.AI) {
                 buyBtn.SetActive(true);
 
                 return;
@@ -165,31 +180,46 @@ public class TileDetailController : MonoBehaviour {
         }
 
         Player owner = tile.Owner;
-        if (owner != null && owner.GetId() != player.GetId()) {
+        if (owner != null && owner.Id != player.Id) {
             ownerText.text = ownerWord;
-            ownerIcon.GetComponent<Image>().sprite = owner.GetImage();
+            ownerIcon.GetComponent<Image>().sprite = owner.Icon;
             ownerIcon.SetActive(true);
             ownerPanel.SetActive(true);
 
             return;
         }
 
+        if (player.IsMoving || player.AI) {
+            return;
+        }
+
         switch (status) {
             case TileStatus.PURCHASED:
-                sellBtn.SetActive(true);
-                plusBtn.SetActive(true);
+                sellBtn.SetActive(showButton);
+                plusBtn.SetActive(showButton);
+                plusPriceText.text = Utils.FormatPrice(tile.Details.HousePurchaseValue);
                 buyOptionsHouse.SetActive(true);
                 break;
             case TileStatus.ONE_HOUSE: case TileStatus.TWO_HOUSES: case TileStatus.THREE_HOUSES: case TileStatus.FOUR_HOUSES:
-                minusBtn.SetActive(true);
-                plusBtn.SetActive(true);
+                minusBtn.SetActive(showButton);
+                plusBtn.SetActive(showButton);
+                minusPriceText.text = Utils.FormatPrice(tile.Details.HousePurchaseValue / 2);
+
+                if (status == TileStatus.FOUR_HOUSES) {
+                    plusPriceText.text = Utils.FormatPrice(tile.Details.HotelPurchaseValue);
+                } else {
+                    plusPriceText.text = Utils.FormatPrice(tile.Details.HousePurchaseValue);
+                }
+
                 buyOptionsHouse.SetActive(true);
                 break;
             case TileStatus.HOTEL:
-                minusBtn.SetActive(true);
+                minusBtn.SetActive(showButton);
+                minusPriceText.text = Utils.FormatPrice(tile.Details.HotelPurchaseValue / 2);
                 buyOptionsHotel.SetActive(true);
                 break;
         }
+        
         buyOptions.SetActive(true);
     }
 

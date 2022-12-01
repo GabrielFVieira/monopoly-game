@@ -6,6 +6,12 @@ TagManager:
   tags:
   - TileDetail
   - BusinessTileDetail
+  - Player1Setup
+  - Player2Setup
+  - Player3Setup
+  - Player4Setup
+  - CurrencyPanel
+  - GameDice
   layers:
   - Default
   - TransparentFX
@@ -48,4 +54,7 @@ TagManager:
     locked: 0
   - name: Board
     uniqueID: 320843825
+    locked: 0
+  - name: Canvas
+    uniqueID: 1647485375
     locked: 0
